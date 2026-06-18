@@ -54,7 +54,7 @@ export async function GET(req: Request) {
       });
     }
 
-    const messages = conversation.messages.map((m) => ({
+    const messages = conversation.messages.map((m: any) => ({
       role: m.role as "user" | "assistant",
       content: m.content,
     }));
