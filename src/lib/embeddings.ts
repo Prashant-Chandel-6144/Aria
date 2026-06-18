@@ -2,7 +2,7 @@ import OpenAI from "openai";
 import { prisma } from "./db";
 
 const openai = new OpenAI({
-  apiKey: process.env.OPENAI_API_KEY || "dummy-key-for-build",
+  apiKey: process.env.OPENAI_API_KEY,
 });
 
 /**

@@ -637,7 +637,6 @@ function DashboardPage() {
     { id: "trash", label: "Trash", icon: Trash2 },
     { id: "calendar", label: "Calendar", icon: CalendarDays },
     { id: "chat", label: "Aria AI", icon: Sparkles },
-    { id: "profile", label: "Profile", icon: User },
   ];
 
   const currentMails =
@@ -917,7 +916,6 @@ function DashboardPage() {
           >
             <Home className="h-4 w-4" />
           </button>
-          <LogoutButton variant="header" showLabel={false} />
           <ModeToggle />
         </div>
       </header>
