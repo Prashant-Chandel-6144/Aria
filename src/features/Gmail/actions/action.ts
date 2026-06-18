@@ -13,7 +13,8 @@ export async function createMail(formData: FormData) {
     headers: await headers(),
   });
 
-  if (!session?.user?.id) {
+  const userId = session?.user?.id;
+  if (!userId) {
     return { error: "Unauthorized" };
   }
 
@@ -35,7 +36,7 @@ export async function createMail(formData: FormData) {
       .replace(/=+$/, "");
 
     const result = await corsair
-      .withTenant(session.user.id!)
+      .withTenant(userId)
       .gmail.api.messages.send({
         raw,
       });
@@ -58,7 +59,8 @@ export async function saveDraft(formData: FormData) {
     headers: await headers(),
   });
 
-  if (!session?.user?.id) {
+  const userId = session?.user?.id;
+  if (!userId) {
     return { error: "Unauthorized" };
   }
 
@@ -83,7 +85,7 @@ export async function saveDraft(formData: FormData) {
     if (draftId) {
       // Update existing draft
       result = await corsair
-        .withTenant(session.user.id!)
+        .withTenant(userId)
         .gmail.api.drafts.update({
           id: draftId,
           draft: { message: { raw } },
@@ -91,7 +93,7 @@ export async function saveDraft(formData: FormData) {
     } else {
       // Create new draft
       result = await corsair
-        .withTenant(session.user.id!)
+        .withTenant(userId)
         .gmail.api.drafts.create({
           draft: { message: { raw } },
         });
@@ -110,13 +112,14 @@ export async function sendDraft(draftId: string) {
     headers: await headers(),
   });
 
-  if (!session?.user?.id) {
+  const userId = session?.user?.id;
+  if (!userId) {
     return { error: "Unauthorized" };
   }
 
   try {
     const result = await corsair
-      .withTenant(session.user.id!)
+      .withTenant(userId)
       .gmail.api.drafts.send({
         id: draftId,
       });
@@ -134,13 +137,14 @@ export async function deleteDraft(draftId: string) {
     headers: await headers(),
   });
 
-  if (!session?.user?.id) {
+  const userId = session?.user?.id;
+  if (!userId) {
     return { error: "Unauthorized" };
   }
 
   try {
     await corsair
-      .withTenant(session.user.id!)
+      .withTenant(userId)
       .gmail.api.drafts.delete({
         id: draftId,
       });

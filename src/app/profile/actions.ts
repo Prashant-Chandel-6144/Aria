@@ -10,11 +10,10 @@ export async function getProfileData() {
     headers: await headers(),
   });
 
-  if (!session?.user?.id) {
+  const userId = session?.user?.id;
+  if (!userId) {
     throw new Error("Unauthorized");
   }
-
-  const userId = session.user.id;
 
   // Fetch user, profile, and preferences
   let user = await prisma.user.findUnique({
@@ -112,11 +111,10 @@ export async function updateProfile(data: {
     headers: await headers(),
   });
 
-  if (!session?.user?.id) {
+  const userId = session?.user?.id;
+  if (!userId) {
     throw new Error("Unauthorized");
   }
-
-  const userId = session.user.id;
 
   // Update user name / image if provided
   if (data.name !== undefined || data.avatarUrl !== undefined) {
@@ -155,11 +153,10 @@ export async function updatePreferences(data: {
     headers: await headers(),
   });
 
-  if (!session?.user?.id) {
+  const userId = session?.user?.id;
+  if (!userId) {
     throw new Error("Unauthorized");
   }
-
-  const userId = session.user.id;
 
   await prisma.userPreference.update({
     where: { userId },
@@ -182,11 +179,10 @@ export async function disconnectIntegration(integrationId: string) {
     headers: await headers(),
   });
 
-  if (!session?.user?.id) {
+  const userId = session?.user?.id;
+  if (!userId) {
     throw new Error("Unauthorized");
   }
-
-  const userId = session.user.id;
 
   // Delete the corresponding CorsairAccount record by locating the integration by name
   const integration = await prisma.corsairIntegration.findFirst({

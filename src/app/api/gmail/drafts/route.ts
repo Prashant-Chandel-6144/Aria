@@ -8,13 +8,14 @@ export async function GET(req: NextRequest) {
     headers: await headers(),
   });
 
-  if (!session?.user?.id) {
+  const userId = session?.user?.id;
+  if (!userId) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   try {
     const listResult = await corsair
-      .withTenant(session.user.id!)
+      .withTenant(userId)
       .gmail.api.drafts.list({
         maxResults: 20,
       });
@@ -26,7 +27,7 @@ export async function GET(req: NextRequest) {
         if (!draft.id) return null;
         try {
           const full = await corsair
-            .withTenant(session.user.id!)
+            .withTenant(userId)
             .gmail.api.drafts.get({
               id: draft.id,
               format: "metadata",

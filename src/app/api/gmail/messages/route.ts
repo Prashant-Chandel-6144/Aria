@@ -11,13 +11,14 @@ export async function GET(req: NextRequest) {
     headers: await headers(),
   });
 
-  if (!session?.user?.id) {
+  const userId = session?.user?.id;
+  if (!userId) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   try {
     // Use corsair to call the Gmail listMessages action for the current user
-    const result = await corsair.withTenant(session.user.id!).gmail.api.drafts.get({
+    const result = await corsair.withTenant(userId).gmail.api.drafts.get({
       id:"r-5895844025962215518",
       format:"full",
 
@@ -47,7 +48,8 @@ export async function POST(req: NextRequest) {
     headers: await headers(),
   });
 
-  if (!session?.user?.id) {
+  const userId = session?.user?.id;
+  if (!userId) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -70,7 +72,7 @@ export async function POST(req: NextRequest) {
       .replace(/=+$/, "");
 
     const result = await corsair
-  .withTenant(session.user.id!)
+  .withTenant(userId)
   .gmail.api.messages.send({
     raw,
   });

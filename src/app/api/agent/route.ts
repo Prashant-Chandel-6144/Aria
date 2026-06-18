@@ -101,7 +101,7 @@ export async function POST(req: Request) {
       data: {
         conversationId: conversation.id,
         role: "assistant",
-        content: result.finalOutput,
+        content: result.finalOutput || "",
       },
     });
 
