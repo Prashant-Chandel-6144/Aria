@@ -5,6 +5,7 @@ import { prisma } from "./db";
 import { nextCookies } from "better-auth/next-js";
 
 export const auth = betterAuth({
+  secret: process.env.BETTER_AUTH_SECRET || "fallback-secret-for-build",
   database: prismaAdapter(prisma, {
     provider: "postgresql",
   }),
