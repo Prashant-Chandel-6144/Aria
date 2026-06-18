@@ -97,8 +97,8 @@ export async function getProfileData() {
       keyboardShortcuts: preference.keyboardShortcuts || null,
     },
     integrations: connectedAccounts
-      .filter((account) => hasOAuthTokens(account.config))
-      .map((account) => account.integration.name),
+      .filter((account: any) => hasOAuthTokens(account.config))
+      .map((account: any) => account.integration.name),
   };
 }
 
