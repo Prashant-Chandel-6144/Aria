@@ -15,6 +15,7 @@ export const corsair = createCorsair({
     kek: process.env.CORSAIR_KEK!,
     multiTenancy: true,
     connect: {
+        baseUrl: process.env.APP_URL!,
         redirectUri: `${process.env.APP_URL}/api/auth`,
     },
     apiKey: process.env.CORSAIR_DEV_KEY!
