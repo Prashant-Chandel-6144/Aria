@@ -147,7 +147,7 @@ export default function ProfileClient({ isTab = false }: { isTab?: boolean }) {
         setDefaultSendDelay(data.preference.defaultSendDelay);
 
         if (data.preference.keyboardShortcuts) {
-          const loadedShortcuts = data.preference.keyboardShortcuts as Record<string, any>;
+          const loadedShortcuts = data.preference.keyboardShortcuts as any;
           const normalized: Record<string, string> = {};
           Object.keys(loadedShortcuts).forEach((key) => {
             const val = loadedShortcuts[key];
