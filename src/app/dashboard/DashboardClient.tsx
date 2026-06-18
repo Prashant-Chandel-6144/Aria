@@ -638,7 +638,6 @@ function DashboardPage() {
     { id: "calendar", label: "Calendar", icon: CalendarDays },
     { id: "chat", label: "Aria AI", icon: Sparkles },
     { id: "profile", label: "Profile", icon: User },
-    { id: "compose", label: "Compose", icon: PenSquare },
   ];
 
   const currentMails =
