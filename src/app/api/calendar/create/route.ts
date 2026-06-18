@@ -44,7 +44,8 @@ export async function POST(req: Request) {
     const session = await auth.api.getSession({
       headers: await headers()
     });
-    if (!session) {
+    const userId = session?.user?.id;
+    if (!userId) {
       return NextResponse.json(
         { success: false, error: "Not authenticated" },
         { status: 401 },
@@ -70,8 +71,6 @@ export async function POST(req: Request) {
       colorId,
       attendees: attendees ? attendees.map((email: string) => ({ email })) : undefined,
     };
-
-    const userId = session.user.id;
     await ensureCorsairCredentials(userId);
 
     const result = await corsair

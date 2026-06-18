@@ -40,7 +40,8 @@ export async function PATCH(req: Request) {
     const session = await auth.api.getSession({
       headers: await headers()
     });
-    if (!session?.user?.id) {
+    const userId = session?.user?.id;
+    if (!userId) {
       return NextResponse.json(
         { success: false, error: "Not authenticated" },
         { status: 401 }
@@ -81,7 +82,6 @@ export async function PATCH(req: Request) {
       eventData.attendees = attendees.map((email: string) => ({ email }));
     }
 
-    const userId = session.user.id;
     await ensureCorsairCredentials(userId);
 
     const result = await corsair

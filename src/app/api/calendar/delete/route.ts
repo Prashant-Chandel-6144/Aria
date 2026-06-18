@@ -26,7 +26,8 @@ export async function DELETE(_req: Request) {
   const session = await auth.api.getSession({
     headers: await headers(),
   });
-  if (!session) {
+  const userId = session?.user?.id;
+  if (!userId) {
     return NextResponse.json(
       { success: false, error: "Not authenticated" },
       { status: 401 },
@@ -40,8 +41,8 @@ export async function DELETE(_req: Request) {
     );
   }
   try {
-    await ensureCorsairCredentials(session.user.id);
-    await corsair.withTenant(session.user.id).googlecalendar.api.events.delete({ id });
+    await ensureCorsairCredentials(userId);
+    await corsair.withTenant(userId).googlecalendar.api.events.delete({ id });
     return NextResponse.json({ success: true });
   } catch (error) {
     console.error("Delete error:", error);

@@ -8,7 +8,8 @@ export async function GET(req: NextRequest) {
     headers: await headers(),
   });
 
-  if (!session?.user?.id) {
+  const userId = session?.user?.id;
+  if (!userId) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -22,7 +23,7 @@ export async function GET(req: NextRequest) {
   }
 
   try {
-    const results = await searchLocalEntities(session.user.id, query, limit);
+    const results = await searchLocalEntities(userId, query, limit);
     return NextResponse.json({ results });
   } catch (error: any) {
     console.error("Local search failed:", error);

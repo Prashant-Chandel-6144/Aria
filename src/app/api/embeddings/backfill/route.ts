@@ -9,7 +9,8 @@ export async function POST(req: NextRequest) {
     headers: await headers(),
   });
 
-  if (!session?.user?.id) {
+  const userId = session?.user?.id;
+  if (!userId) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
@@ -19,11 +20,11 @@ export async function POST(req: NextRequest) {
 
     // 2. Fetch all corsair_entities for the current user (connected accounts)
     const userAccounts = await prisma.corsairAccount.findMany({
-      where: { tenantId: session.user.id },
+      where: { tenantId: userId },
       select: { id: true },
     });
 
-    const accountIds = userAccounts.map((a) => a.id);
+    const accountIds = userAccounts.map((a: { id: string }) => a.id);
 
     if (accountIds.length === 0) {
       return NextResponse.json({
