@@ -23,6 +23,7 @@ import {
   Keyboard
 } from "lucide-react";
 import { GithubLogoIcon as Github } from "@phosphor-icons/react";
+import { LogoutButton } from "@/components/logout-button";
 import {
   Card,
   CardContent,
@@ -476,6 +477,16 @@ export default function ProfileClient({ isTab = false }: { isTab?: boolean }) {
                     </Button>
                   </div>
                 </form>
+
+                <div className="mt-8 pt-6 border-t border-border/30 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                  <div>
+                    <h4 className="text-sm font-semibold text-foreground">Sign out</h4>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      End your session on this device and return to the login page.
+                    </p>
+                  </div>
+                  <LogoutButton variant="profile" />
+                </div>
               </CardContent>
             </Card>
           )}
@@ -1041,6 +1052,16 @@ export default function ProfileClient({ isTab = false }: { isTab?: boolean }) {
                     </Button>
                   </div>
                 </form>
+
+                <div className="mt-8 pt-6 border-t border-border/30 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                  <div>
+                    <h4 className="text-sm font-semibold text-foreground">Sign out</h4>
+                    <p className="text-xs text-muted-foreground mt-1">
+                      End your session on this device and return to the login page.
+                    </p>
+                  </div>
+                  <LogoutButton variant="profile" />
+                </div>
               </CardContent>
             </Card>
           )}

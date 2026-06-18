@@ -37,6 +37,7 @@ import {
 } from "@/features/calendar/types";
 import { toast } from "sonner";
 import { authClient } from "@/lib/auth-client";
+import { LogoutButton } from "@/components/logout-button";
 import {
   format,
   startOfMonth,
@@ -1372,6 +1373,7 @@ export function CalendarViewComponent({ isInline = false }: { isInline?: boolean
             </button>
           )}
 
+          {!isInline && <LogoutButton variant="header" showLabel={false} />}
           {!isInline && <ModeToggle />}
         </div>
       </header>

@@ -4,6 +4,7 @@ import React from "react";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
 import { ModeToggle } from "../toggle-button";
+import { LogoutButton } from "../logout-button";
 
 const HomeNav = () => {
   const router = useRouter();
@@ -29,6 +30,7 @@ const HomeNav = () => {
              >
                Calendar
              </Button>
+             <LogoutButton variant="header" />
              <ModeToggle />
            </div>
          </nav>

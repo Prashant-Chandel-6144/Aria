@@ -37,6 +37,7 @@ import { ShortcutsCheatsheet } from "@/components/Dashboard/ShortcutsCheatsheet"
 import { AdvancedSearch } from "@/components/Dashboard/AdvancedSearch";
 import { sendDraft, deleteDraft } from "@/features/Gmail/actions/action";
 import { CalendarViewComponent } from "@/components/Calendar/CalendarView";
+import { LogoutButton } from "@/components/logout-button";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 interface GmailMessage {
@@ -918,6 +919,7 @@ function DashboardPage() {
           >
             <Home className="h-4 w-4" />
           </button>
+          <LogoutButton variant="header" showLabel={false} />
           <ModeToggle />
         </div>
       </header>
@@ -964,7 +966,7 @@ function DashboardPage() {
           </nav>
 
           {/* Sidebar Footer */}
-          <div className="shrink-0 p-2.5 border-t border-border/40">
+          <div className="shrink-0 p-2.5 border-t border-border/40 space-y-1">
             <button
               id="sidebar-settings"
               onClick={() => setActiveTab("profile")}
@@ -978,6 +980,11 @@ function DashboardPage() {
               <Settings className="h-4 w-4 shrink-0" />
               {!sidebarCollapsed && <span>Settings</span>}
             </button>
+            <LogoutButton
+              variant="sidebar"
+              showLabel={!sidebarCollapsed}
+              className={sidebarCollapsed ? "justify-center" : undefined}
+            />
           </div>
         </aside>
 
