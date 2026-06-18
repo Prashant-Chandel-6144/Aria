@@ -10,8 +10,12 @@ const pool = new Pool({ connectionString: process.env.DATABASE_URL });
 
 
 export const corsair = createCorsair({
-    plugins: [github(),gmail(), googlecalendar()],
+    plugins: [github(),gmail(), googlecalendar({ authType: "oauth_2" })],
     database: pool,
     kek: process.env.CORSAIR_KEK!,
     multiTenancy: true,
+    connect: {
+        redirectUri: `${process.env.APP_URL}/api/auth`,
+    },
+    apiKey: process.env.CORSAIR_DEV_KEY!
 });

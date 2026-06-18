@@ -25,11 +25,13 @@ export async function GET(request: NextRequest) {
 
     try {
         const result = await processOAuthCallback(corsair, { code, state, redirectUri: REDIRECT_URI });
-        const response = NextResponse.redirect("/dashboard?connected=" + result.plugin);
+        const redirectUrl = new URL(`/dashboard?connected=${result.plugin}`, request.url);
+        const response = NextResponse.redirect(redirectUrl);
         response.cookies.delete("oauth_state");
         return response;
-    } catch {
-        const response = new NextResponse("OAuth failed.", { status: 500 });
+    } catch (error: any) {
+        console.error("processOAuthCallback error:", error);
+        const response = new NextResponse(`OAuth failed: ${error?.message || error}`, { status: 500 });
         response.cookies.delete("oauth_state");
         return response;
     }
